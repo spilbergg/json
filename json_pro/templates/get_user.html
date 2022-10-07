@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+
+</head>
+<body>
+	<form action="{% url 'delete_all' %}" method="post">
+		{% csrf_token %}
+		<button>Удалить все записи</button>
+	</form>
+	<form action="{% url 'get_user' %}" method="post">
+		{% csrf_token %}
+		{% if next_user > user.count %}
+			<p>Userov bol`she net</p>
+		{% else %}
+			<button type="submit"> Получить юзера </button>
+		{% endif %}
+		{% if message %}
+			<p>{{ message }}</p>
+		{% else %}
+			{% for i in user %}
+				<p><a href="{% url 'get_json_detail' i.id %}">{{ i.name }}</a></p>
+			{% endfor %}
+		{% endif %}
+	</form>
+</body>
+</html>
